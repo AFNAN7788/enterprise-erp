@@ -1,36 +1,216 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NexGen ERP — Enterprise Resource Planning & Business Management System
+
+## Overview
+
+A full-stack, role-based ERP system built with Next.js 16, Firebase Auth, Firestore, and Tailwind CSS v4. Designed for mid-size enterprises to manage HR, Finance, Projects, Inventory, Sales, CRM, and Operations from a single dashboard.
+
+## Features
+
+### Dashboard
+
+- Role-specific dashboards (Admin, HR, Manager, Employee) with real-time KPIs
+- Company-wide overview with key metrics and charts
+
+### HR Management
+
+- Employee records with profile management
+- Attendance tracking with check-in/out functionality
+- Leave request submission and approval workflow
+- Payroll processing and salary management
+
+### Finance & Accounting
+
+- Expense submission, approval, and rejection workflow
+- Payroll run management
+- Budget tracking and financial summaries
+
+### Projects
+
+- Project management with Kanban task boards
+- Drag-and-drop task organization
+- Team assignments and task tracking
+
+### Inventory
+
+- Product catalog management
+- Stock level tracking
+- Stock movement logs and history
+
+### Sales & Orders
+
+- Sales order creation and management
+- Purchase order processing
+- Order status tracking and updates
+
+### CRM
+
+- Customer records and contact management
+- Interaction tracking and history
+- Follow-up reminders and scheduling
+
+### Documents
+
+- Document management with file uploads
+- Categorized storage (HR, Finance, Projects, Legal)
+- Document access control by role
+
+### Reports
+
+- Real-time analytics across employees, finances, attendance, and projects
+- Exportable reports and data visualization
+
+### Recruitment
+
+- Job posting management
+- Applicant tracking and status updates
+
+### Performance
+
+- KPI tracking for employees and teams
+- Team performance scoring and analytics
+
+### User Management
+
+- Admin user management with role assignment
+- User activation and deactivation controls
+
+### Settings
+
+- Theme customization (light/dark mode)
+- Notification preferences
+- Security settings
+- Company profile configuration
+
+### Team Overview
+
+- Organization-wide team directory
+- Team structure visualization
+
+## Tech Stack
+
+- **Frontend:** Next.js 16 (App Router + Turbopack), React 19, Tailwind CSS v4
+- **Backend:** Next.js API Routes, Server Actions
+- **Database:** Cloud Firestore (real-time, security rules)
+- **Auth:** Firebase Authentication (email/password + session cookies)
+- **Admin SDK:** Firebase Admin SDK v12+ (modular API)
+- **UI Components:** Custom component library (Card, Button, etc.)
+- **Icons:** Lucide React
+- **Notifications:** Sonner (toast notifications)
+- **Drag & Drop:** @dnd-kit/core (Kanban task boards)
+
+## Architecture
+
+- Role-based access control: admin, hr, manager, employee
+- Firestore security rules enforce data access per role
+- Server Actions for all write operations
+- REST API for stats and authentication
+
+## Project Structure
+
+```
+app/
+├── (auth)/              # Login, Register, Setup pages
+├── (dashboard)/         # All dashboard modules
+│   ├── admin/           # Users, Settings, Leave, Recruitment, Performance, Teams
+│   ├── hr/              # Recruitment
+│   ├── manager/         # Teams, Performance
+│   ├── employee/        # Tasks
+│   ├── dashboard/       # Main dashboard + role-specific dashboards
+│   ├── attendance/      # Check-in/out, calendar
+│   ├── employees/       # Employee directory
+│   ├── projects/        # Projects + task boards
+│   ├── customers/       # CRM
+│   ├── orders/          # Sales & purchase orders
+│   ├── products/        # Inventory
+│   ├── expenses/        # Expense management
+│   ├── payroll/         # Payroll processing
+│   ├── documents/       # Document management
+│   ├── reports/         # Analytics & reports
+│   ├── profile/         # User profile
+│   └── settings/        # Settings
+├── api/                 # API routes (auth, stats, setup)
+└── actions/             # Server Actions
+components/              # Reusable UI components
+lib/                     # Firebase config, utilities
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- Firebase project (Firestore, Authentication enabled)
+
+### Installation
+
+```bash
+npm install
+```
+
+### Environment Variables
+
+Create `.env.local` in the project root:
+
+```env
+NEXT_PUBLIC_FIREBASE_API_KEY=...
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=...
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=...
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=...
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=...
+NEXT_PUBLIC_FIREBASE_APP_ID=...
+
+FIREBASE_PROJECT_ID=...
+FIREBASE_CLIENT_EMAIL=...
+FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----"
+```
+
+### Seed Database
+
+Populate the database with sample data:
+
+```bash
+node seed.js
+```
+
+### Run Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## Default Credentials
 
-To learn more about Next.js, take a look at the following resources:
+| Role     | Email               | Password       |
+|----------|---------------------|----------------|
+| Admin    | admin@nexgen.com    | Admin123!      |
+| HR       | hr@nexgen.com       | Hr12345!       |
+| Manager  | manager@nexgen.com  | Manager123!    |
+| Employee | employee@nexgen.com | Employee123!   |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Security
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Firebase Authentication for user identity management
+- HttpOnly session cookies for secure session handling
+- Firestore security rules enforcing role-based data access
+- Server-side token verification on all protected routes
+- CSRF protection via session cookies
 
-## Deploy on Vercel
+## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Compatible with Vercel, Firebase Hosting, or any Node.js host
+- Run `node seed.js` after deployment to populate sample data
+- Deploy Firestore rules via Firebase Console
+- Ensure environment variables are configured in your hosting platform
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+
+Internal — NexGen Internship Project

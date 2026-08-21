@@ -1,0 +1,47 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Helper: must be signed in
+    function isLoggedIn() {
+      return request.auth != null;
+    }
+
+    // Helper: admin or hr (via custom claims synced at login)
+    function isAdminOrHR() {
+      return isLoggedIn() && (
+        request.auth.token.role == 'admin' ||
+        request.auth.token.role == 'hr'
+      );
+    }
+
+    // Helper: does the file path belong to this user?
+    // Path shape: documents/{uid}/{filename}
+    function isOwnFile() {
+      return isLoggedIn() && resource.name.matches('documents/' + request.auth.uid + '/.*');
+    }
+
+    // Default deny
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+
+    // ── Documents uploads ─────────────────────────────────
+    match /documents/{userId}/{fileName} {
+      // Authenticated user — can upload files to their own folder
+      allow write: if isLoggedIn() && userId == request.auth.uid;
+
+      // User — can read/download only their own files
+      allow read: if isOwnFile();
+
+      // Admin & HR — can access (read/download) all documents
+      allow read: if isAdminOrHR();
+
+      // User — can delete only their own files
+      allow delete: if isOwnFile();
+
+      // Admin & HR — can delete any document
+      allow delete: if isAdminOrHR();
+    }
+  }
+}

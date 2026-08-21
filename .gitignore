@@ -24,17 +24,33 @@
 .DS_Store
 *.pem
 
-# debug
+# debug logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# env files
+.env.local
+.env*.local
 
 # vercel
 .vercel
+
+# windows
+Thumbs.db
+Desktop.ini
+
+# firebase
+firestore-debug.log
+ui-debug.log
+firebase-debug.log
+.firebaserc
+
+# python
+*.pyc
+__pycache__/
 
 # typescript
 *.tsbuildinfo

@@ -1,0 +1,20 @@
+{
+  "name": "nexgen-erp-functions",
+  "version": "1.0.0",
+  "description": "NexGen ERP Cloud Functions",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run serve",
+    "deploy": "firebase deploy --only functions"
+  },
+  "dependencies": {
+    "firebase-admin": "^14.2.0",
+    "firebase-functions": "^6.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5"
+  }
+}

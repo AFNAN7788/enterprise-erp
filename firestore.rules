@@ -1,0 +1,174 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isLoggedIn() {
+      return request.auth != null;
+    }
+
+    function getRole() {
+      return get(/databases/$(database)/documents/profiles/$(request.auth.uid)).data.role;
+    }
+
+    function isAdmin() {
+      return isLoggedIn() && getRole() == 'admin';
+    }
+
+    function isHR() {
+      return isLoggedIn() && getRole() == 'hr';
+    }
+
+    function isManager() {
+      return isLoggedIn() && getRole() == 'manager';
+    }
+
+    function isEmployee() {
+      return isLoggedIn() && getRole() == 'employee';
+    }
+
+    function safeProfileFields() {
+      return request.resource.data.diff(resource.data)
+        .affectedKeys().hasOnly(['full_name', 'avatar_url', 'phone']);
+    }
+
+    // ── Profiles ──────────────────────────────────────────
+    match /profiles/{userId} {
+      allow read: if isLoggedIn();
+      allow create: if isLoggedIn() && request.auth.uid == userId
+        && request.resource.data.hasOnly(['id', 'email', 'full_name', 'role', 'avatar_url', 'created_at', 'updated_at']);
+      allow update: if isLoggedIn() && request.auth.uid == userId && safeProfileFields();
+      allow delete: if false;
+    }
+
+    // ── Employees ─────────────────────────────────────────
+    match /employees/{employeeId} {
+      allow read: if isLoggedIn();
+      allow create: if isAdmin() || isHR();
+      allow update: if isAdmin() || isHR();
+      allow delete: if isAdmin();
+    }
+
+    // ── LeaveRequests ─────────────────────────────────────
+    match /leaveRequests/{requestId} {
+      allow read: if isLoggedIn();
+      allow create: if isLoggedIn();
+      allow update: if isAdmin() || isHR() || isManager();
+      allow delete: if isAdmin();
+    }
+
+    // ── Payslips ──────────────────────────────────────────
+    match /payslips/{payslipId} {
+      allow read: if isLoggedIn();
+      allow write: if isAdmin() || isHR();
+    }
+
+    // ── Payroll ───────────────────────────────────────────
+    match /payroll/{payrollId} {
+      allow read: if isLoggedIn();
+      allow write: if isAdmin() || isHR();
+    }
+
+    // ── Performance ───────────────────────────────────────
+    match /performance/{reviewId} {
+      allow read: if isLoggedIn();
+      allow write: if isAdmin() || isHR() || isManager();
+    }
+
+    // ── Attendance ────────────────────────────────────────
+    match /attendance/{recordId} {
+      allow read: if isLoggedIn();
+      allow create: if isLoggedIn();
+      allow update: if isLoggedIn();
+    }
+
+    // ── Customers ─────────────────────────────────────────
+    match /customers/{customerId} {
+      allow read: if isLoggedIn();
+      allow create: if isLoggedIn();
+      allow update: if isLoggedIn();
+      allow delete: if isAdmin();
+
+      match /interactions/{interactionId} {
+        allow read: if isLoggedIn();
+        allow create: if isLoggedIn();
+        allow update: if isLoggedIn();
+        allow delete: if isAdmin();
+      }
+    }
+
+    // ── Projects ──────────────────────────────────────────
+    match /projects/{projectId} {
+      allow read: if isLoggedIn();
+      allow create: if isAdmin() || isHR() || isManager();
+      allow update: if isAdmin() || isHR() || isManager();
+      allow delete: if isAdmin();
+    }
+
+    // ── Tasks ─────────────────────────────────────────────
+    match /tasks/{taskId} {
+      allow read: if isLoggedIn();
+      allow create: if isAdmin() || isHR() || isManager();
+      allow update: if isLoggedIn();
+      allow delete: if isAdmin();
+    }
+
+    // ── Products ──────────────────────────────────────────
+    match /products/{productId} {
+      allow read: if isLoggedIn();
+      allow write: if isAdmin() || isManager();
+    }
+
+    // ── StockMovements ────────────────────────────────────
+    match /stockMovements/{movementId} {
+      allow read: if isLoggedIn();
+      allow write: if isAdmin() || isManager();
+    }
+
+    // ── SalesOrders ───────────────────────────────────────
+    match /salesOrders/{orderId} {
+      allow read: if isLoggedIn();
+      allow create: if isLoggedIn();
+      allow update: if isAdmin() || isManager();
+      allow delete: if isAdmin();
+    }
+
+    // ── PurchaseOrders ────────────────────────────────────
+    match /purchaseOrders/{orderId} {
+      allow read: if isLoggedIn();
+      allow create: if isLoggedIn();
+      allow update: if isAdmin() || isManager();
+      allow delete: if isAdmin();
+    }
+
+    // ── Expenses ──────────────────────────────────────────
+    match /expenses/{expenseId} {
+      allow read: if isLoggedIn();
+      allow create: if isLoggedIn();
+      allow update: if isAdmin();
+    }
+
+    // ── Notifications ─────────────────────────────────────
+    match /notifications/{notificationId} {
+      allow read: if isLoggedIn() && resource.data.userId == request.auth.uid;
+      allow update: if isLoggedIn() && resource.data.userId == request.auth.uid;
+    }
+
+    // ── Documents ─────────────────────────────────────────
+    match /documents/{documentId} {
+      allow read: if isLoggedIn();
+      allow create: if isLoggedIn();
+      allow update: if isLoggedIn();
+      allow delete: if isLoggedIn();
+    }
+
+    // ── ActivityLogs ──────────────────────────────────────
+    match /activityLogs/{logId} {
+      allow read: if isAdmin();
+    }
+
+    // ── DashboardStats ────────────────────────────────────
+    match /dashboardStats/{docId} {
+      allow read: if isLoggedIn();
+    }
+  }
+}
