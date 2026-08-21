@@ -1,11 +1,6 @@
 import { NextResponse } from "next/server";
 import { adminAuth, adminDb } from "@/lib/firebase/admin";
 
-/**
- * POST /api/setup
- * Creates the first admin user. Call this ONCE to bootstrap the system.
- * Body: { email, password, fullName }
- */
 export async function POST(request: Request) {
   try {
     const { email, password, fullName } = await request.json();
@@ -15,23 +10,30 @@ export async function POST(request: Request) {
     }
 
     if (!adminAuth || !adminDb) {
-      return NextResponse.json({ error: "Admin SDK not configured" }, { status: 500 });
+      const projectId = process.env.FIREBASE_PROJECT_ID;
+      const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
+      const privateKey = process.env.FIREBASE_PRIVATE_KEY;
+      const missing = [];
+      if (!projectId) missing.push("FIREBASE_PROJECT_ID");
+      if (!clientEmail) missing.push("FIREBASE_CLIENT_EMAIL");
+      if (!privateKey) missing.push("FIREBASE_PRIVATE_KEY");
+      return NextResponse.json({
+        error: "Admin SDK not configured",
+        missing,
+      }, { status: 500 });
     }
 
-    // Check if admin already exists
     const admins = await adminDb.collection("profiles").where("role", "==", "admin").limit(1).get();
     if (!admins.empty) {
       return NextResponse.json({ error: "Admin user already exists" }, { status: 409 });
     }
 
-    // Create Firebase Auth user
     const userRecord = await adminAuth.createUser({
       email,
       password,
       displayName: fullName,
     });
 
-    // Create profile with admin role
     await adminDb.collection("profiles").doc(userRecord.uid).set({
       id: userRecord.uid,
       email,

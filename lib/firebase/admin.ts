@@ -11,11 +11,16 @@ if (getApps().length === 0) {
     const privateKey = process.env.FIREBASE_PRIVATE_KEY;
 
     if (projectId && clientEmail && privateKey) {
+      const formattedKey = privateKey
+        .replace(/\\n/g, "\n")
+        .replace(/"/g, "")
+        .trim();
+
       app = initializeApp({
         credential: cert({
           projectId,
           clientEmail,
-          privateKey: privateKey.replace(/\\n/g, "\n"),
+          privateKey: formattedKey,
         }),
       });
     } else if (projectId) {
