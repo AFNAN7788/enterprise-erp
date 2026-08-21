@@ -38,15 +38,9 @@ const now = new Date().toISOString();
 
 // ── Sample Users ──────────────────────────────────────────────────────────────
 const sampleUsers = [
-  { email: "admin@nexgen.com", password: "Admin123!", fullName: "System Admin", role: "admin" },
-  { email: "hr@nexgen.com", password: "Hr12345!", fullName: "Fatima Khan", role: "hr" },
-  { email: "manager@nexgen.com", password: "Manager123!", fullName: "Ali Raza", role: "manager" },
-  { email: "employee@nexgen.com", password: "Employee123!", fullName: "Sara Ahmed", role: "employee" },
   { email: "ahmed@nexgen.com", password: "Ahmed123!", fullName: "Ahmed Hussain", role: "employee" },
   { email: "zain@nexgen.com", password: "Zain123!", fullName: "Zain Malik", role: "employee" },
   { email: "hira@nexgen.com", password: "Hira123!", fullName: "Hira Ali", role: "employee" },
-  { email: "usman@nexgen.com", password: "Usman123!", fullName: "Usman Tariq", role: "manager" },
-  { email: "nishat@nexgen.com", password: "Nishat123!", fullName: "Nishat Bibi", role: "hr" },
   { email: "bilal@nexgen.com", password: "Bilal123!", fullName: "Bilal Sharif", role: "employee" },
 ];
 
@@ -626,14 +620,7 @@ async function seed() {
   console.log("  ✓ 50 activity logs");
 
   console.log("\n✅ Seed completed successfully!");
-  console.log("\n📋 Login Credentials:");
-  console.log("─".repeat(40));
-  console.log("Admin:    admin@nexgen.com / Admin123!");
-  console.log("HR:       hr@nexgen.com / Hr12345!");
-  console.log("Manager:  manager@nexgen.com / Manager123!");
-  console.log("Employee: employee@nexgen.com / Employee123!");
-  console.log("─".repeat(40));
-
+ 
   process.exit(0);
 }
 
