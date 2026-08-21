@@ -4,9 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 
 export default function SetupPage() {
-  const [email, setEmail] = useState("admin@nexgenerp.com");
-  const [password, setPassword] = useState("Admin@123");
-  const [fullName, setFullName] = useState("System Admin");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [fullName, setFullName] = useState("");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<{ success: boolean; message: string } | null>(null);
 
