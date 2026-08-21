@@ -108,18 +108,18 @@ A full-stack, role-based ERP system built with Next.js 16, Firebase Auth, Firest
 
 ```
 
-## Getting Started
+ Getting Started
 
 Open terminal and clone repository:
 git clone https://github.com/AFNAN7788/enterprise-erp.git
 
 
-### Prerequisites
+Prerequisites
 
 - Node.js 18+
 - Firebase project (Firestore, Authentication enabled)
 
-### Installation
+Installation
 
 ```bash
 npm install
