@@ -106,17 +106,19 @@ A full-stack, role-based ERP system built with Next.js 16, Firebase Auth, Firest
 - REST API for stats and authentication
 
 
-```
-Getting Started
 
-Prerequisites
+### Getting Started
+
+Open Terminal and Clone the repository:
+git clone https://
+
+### Prerequisites
 
 - Node.js 18+
 - Firebase project (Firestore, Authentication enabled)
 
-Installation
+### Installation
 
-```bash
 npm install
 ```
 
