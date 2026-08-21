@@ -1,4 +1,4 @@
-# ERP — Enterprise Resource Planning & Business Management System
+# NexGen ERP — Enterprise Resource Planning & Business Management System
 
 ## Overview
 
@@ -105,24 +105,46 @@ A full-stack, role-based ERP system built with Next.js 16, Firebase Auth, Firest
 - Server Actions for all write operations
 - REST API for stats and authentication
 
+## Project Structure
 
 ```
+app/
+├── (auth)/              # Login, Register, Setup pages
+├── (dashboard)/         # All dashboard modules
+│   ├── admin/           # Users, Settings, Leave, Recruitment, Performance, Teams
+│   ├── hr/              # Recruitment
+│   ├── manager/         # Teams, Performance
+│   ├── employee/        # Tasks
+│   ├── dashboard/       # Main dashboard + role-specific dashboards
+│   ├── attendance/      # Check-in/out, calendar
+│   ├── employees/       # Employee directory
+│   ├── projects/        # Projects + task boards
+│   ├── customers/       # CRM
+│   ├── orders/          # Sales & purchase orders
+│   ├── products/        # Inventory
+│   ├── expenses/        # Expense management
+│   ├── payroll/         # Payroll processing
+│   ├── documents/       # Document management
+│   ├── reports/         # Analytics & reports
+│   ├── profile/         # User profile
+│   └── settings/        # Settings
+├── api/                 # API routes (auth, stats, setup)
+└── actions/             # Server Actions
+components/              # Reusable UI components
+lib/                     # Firebase config, utilities
+```
 
- Getting Started
+## Getting Started
 
-Open terminal and clone repository:
-git clone https://github.com/AFNAN7788/enterprise-erp.git
-
-
-Prerequisites
+### Prerequisites
 
 - Node.js 18+
 - Firebase project (Firestore, Authentication enabled)
 
-Installation
+### Installation
 
+```bash
 npm install
-
 ```
 
 ### Environment Variables
@@ -165,6 +187,9 @@ npm run build
 npm start
 ```
 
+## Initial Setup
+
+After deployment, visit `/setup` to create your first admin account. Then use that admin account to create employee accounts from the Admin Dashboard.
 
 ## Security
 
@@ -174,7 +199,13 @@ npm start
 - Server-side token verification on all protected routes
 - CSRF protection via session cookies
 
+## Deployment
+
+- Compatible with Vercel, Firebase Hosting, or any Node.js host
+- Run `node seed.js` after deployment to populate sample data
+- Deploy Firestore rules via Firebase Console
+- Ensure environment variables are configured in your hosting platform
 
 ## License
 
-This project is licensed under the MIT License
+Internal — NexGen Internship Project

@@ -38,9 +38,15 @@ const now = new Date().toISOString();
 
 // ── Sample Users ──────────────────────────────────────────────────────────────
 const sampleUsers = [
+  { email: "admin@nexgen.com", password: "Admin123!", fullName: "System Admin", role: "admin" },
+  { email: "hr@nexgen.com", password: "Hr12345!", fullName: "Fatima Khan", role: "hr" },
+  { email: "manager@nexgen.com", password: "Manager123!", fullName: "Ali Raza", role: "manager" },
+  { email: "employee@nexgen.com", password: "Employee123!", fullName: "Sara Ahmed", role: "employee" },
   { email: "ahmed@nexgen.com", password: "Ahmed123!", fullName: "Ahmed Hussain", role: "employee" },
   { email: "zain@nexgen.com", password: "Zain123!", fullName: "Zain Malik", role: "employee" },
   { email: "hira@nexgen.com", password: "Hira123!", fullName: "Hira Ali", role: "employee" },
+  { email: "usman@nexgen.com", password: "Usman123!", fullName: "Usman Tariq", role: "manager" },
+  { email: "nishat@nexgen.com", password: "Nishat123!", fullName: "Nishat Bibi", role: "hr" },
   { email: "bilal@nexgen.com", password: "Bilal123!", fullName: "Bilal Sharif", role: "employee" },
 ];
 
@@ -620,7 +626,8 @@ async function seed() {
   console.log("  ✓ 50 activity logs");
 
   console.log("\n✅ Seed completed successfully!");
- 
+  console.log("\n📋 Login credentials are in README.md and .env.local.example");
+
   process.exit(0);
 }
 
