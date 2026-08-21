@@ -121,8 +121,9 @@ Prerequisites
 
 Installation
 
-```bash
+
 npm install
+
 ```
 
 ### Environment Variables
