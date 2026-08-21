@@ -106,9 +106,7 @@ A full-stack, role-based ERP system built with Next.js 16, Firebase Auth, Firest
 - REST API for stats and authentication
 
 
-```
-
-## Getting Started
+```## Getting Started
 
 ### Prerequisites
 
@@ -174,4 +172,4 @@ npm start
 
 ## License
 
-
+This project is licensed under the MIT License
