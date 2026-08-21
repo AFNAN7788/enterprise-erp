@@ -105,33 +105,7 @@ A full-stack, role-based ERP system built with Next.js 16, Firebase Auth, Firest
 - Server Actions for all write operations
 - REST API for stats and authentication
 
-## Project Structure
 
-```
-app/
-├── (auth)/              # Login, Register, Setup pages
-├── (dashboard)/         # All dashboard modules
-│   ├── admin/           # Users, Settings, Leave, Recruitment, Performance, Teams
-│   ├── hr/              # Recruitment
-│   ├── manager/         # Teams, Performance
-│   ├── employee/        # Tasks
-│   ├── dashboard/       # Main dashboard + role-specific dashboards
-│   ├── attendance/      # Check-in/out, calendar
-│   ├── employees/       # Employee directory
-│   ├── projects/        # Projects + task boards
-│   ├── customers/       # CRM
-│   ├── orders/          # Sales & purchase orders
-│   ├── products/        # Inventory
-│   ├── expenses/        # Expense management
-│   ├── payroll/         # Payroll processing
-│   ├── documents/       # Document management
-│   ├── reports/         # Analytics & reports
-│   ├── profile/         # User profile
-│   └── settings/        # Settings
-├── api/                 # API routes (auth, stats, setup)
-└── actions/             # Server Actions
-components/              # Reusable UI components
-lib/                     # Firebase config, utilities
 ```
 
 ## Getting Started
@@ -187,14 +161,6 @@ npm run build
 npm start
 ```
 
-## Default Credentials
-
-| Role     | Email               | Password       |
-|----------|---------------------|----------------|
-| Admin    | admin@nexgen.com    | Admin123!      |
-| HR       | hr@nexgen.com       | Hr12345!       |
-| Manager  | manager@nexgen.com  | Manager123!    |
-| Employee | employee@nexgen.com | Employee123!   |
 
 ## Security
 
@@ -204,13 +170,8 @@ npm start
 - Server-side token verification on all protected routes
 - CSRF protection via session cookies
 
-## Deployment
 
-- Compatible with Vercel, Firebase Hosting, or any Node.js host
-- Run `node seed.js` after deployment to populate sample data
-- Deploy Firestore rules via Firebase Console
-- Ensure environment variables are configured in your hosting platform
 
 ## License
 
-Internal — NexGen Internship Project
+
