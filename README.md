@@ -1,4 +1,4 @@
-# NexGen ERP — Enterprise Resource Planning & Business Management System
+# ERP — Enterprise Resource Planning & Business Management System
 
 ## Overview
 
@@ -106,11 +106,13 @@ A full-stack, role-based ERP system built with Next.js 16, Firebase Auth, Firest
 - REST API for stats and authentication
 
 
+```
 
-### Getting Started
+## Getting Started
 
-Open Terminal and Clone the repository:
-git clone https://
+Open terminal and clone repository:
+git clone https://github.com/AFNAN7788/enterprise-erp.git
+
 
 ### Prerequisites
 
@@ -119,6 +121,7 @@ git clone https://
 
 ### Installation
 
+```bash
 npm install
 ```
 
@@ -170,7 +173,6 @@ npm start
 - Firestore security rules enforcing role-based data access
 - Server-side token verification on all protected routes
 - CSRF protection via session cookies
-
 
 
 ## License
